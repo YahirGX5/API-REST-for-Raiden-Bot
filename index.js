@@ -5,12 +5,22 @@ const app = express();
 app.disable('x-powered-by');
 
 
-//Cuando obtenga un get en la ruta '/get-users'
+//Cuando obtenga un get en la ruta '/users'
 app.get('/get-users', (req, res) => {
     try {
-        let users = database.execute(`SELECT user FROM users;`);
+
+        let users;
+        database.execute('SELECT `user_name` FROM users;', (error, results) => {
+            if (error) throw error;
+            users = results;
+        });
+
+        res.json(users);
+
     } catch (error) {
+
         res.status(500).send('<h1> Internal Server Error <h1>');
+
     }
     
 });
