@@ -1,17 +1,21 @@
-const mysql2 = require('mysql2/promise');
+const mysql2 = require('mysql2');
 require('dotenv').config();
 
 
 
-const connection = await mysql2.createConnection({
-    host: process.env.HOST_DATABASE,
-    port: process.env.PORT,
+const pool = mysql2.createPool({
+    connectionLimit: 10,
+    host: process.env.HOST_DATABASE, 
     user: process.env.USER_DATABASE,
+    password: process.env.PASSWORD_DATABASE, 
     database: process.env.DATABASE,
-    password: process.env.PASSWORD_DATABASE
-});
+    port: process.env.PORT,
+    maxIdle: 10,
+    queueLimit: 0,
+
+})
+
+const promisePool = pool.promise();
 
 
-
-
-module.exports = { connection }
+module.exports = { promisePool }

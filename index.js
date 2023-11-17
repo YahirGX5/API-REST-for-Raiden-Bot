@@ -1,19 +1,15 @@
 const express = require('express');
-const database = require('./dbconnection.js');
+const promisePool = require('./dbconnection.js');
 const app = express();
 
 app.disable('x-powered-by');
 
 
 //Cuando obtenga un get en la ruta '/users'
-app.get('/get-users', (req, res) => {
+app.get('/users', async (req, res) => {
     try {
 
-        let users;
-        database.execute('SELECT `user_name` FROM users;', (error, results) => {
-            if (error) throw error;
-            users = results;
-        });
+        const [users] = await promisePool.query('SELECT `user_name` FROM users;');
 
         res.json(users);
 
