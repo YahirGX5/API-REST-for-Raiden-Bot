@@ -5,7 +5,7 @@ const app = express();
 app.disable('x-powered-by');
 app.use(express.json());
 
-//Cuando obtenga un get en la ruta '/users'
+//Cuando obtenga un GET en la ruta '/users'
 app.get('/users', async (req, res) => {
     try {
 
@@ -22,6 +22,14 @@ app.get('/users', async (req, res) => {
 });
 
 
+app.delete('/users', async (req, res) => {
+    const { user_discord_id } = req.body;
+    await promisePool.query('DELETE FROM users WHERE user_discord_id = ?;', [user_discord_id]);
+    res.send('<h1> Todo bien pibe 😁 <h1>');
+});
+
+
+// Cuando tengamos un POST en la ruta '/users'
 app.post('/users', async (req, res) => {
     try {
 
