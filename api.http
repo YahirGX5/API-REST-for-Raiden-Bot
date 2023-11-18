@@ -1,2 +1,14 @@
 ### Obtener usuarios
 GET http://localhost:1234/users
+
+
+### Crear un usuario
+POST http://localhost:1234/users
+Content-Type: application/json
+
+{
+  "user_discord_id": "1234567890",
+  "user_name": "Prueba de api",
+  "points": 100,
+  "level_of_user": 1
+}
