@@ -1,0 +1,2 @@
+### Obtener usuarios
+GET http://localhost:1234/users
