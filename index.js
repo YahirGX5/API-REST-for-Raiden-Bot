@@ -22,6 +22,7 @@ app.get('/users', async (req, res) => {
 });
 
 
+//Cuando obtenga un DELETE en la ruta '/users'
 app.delete('/users', async (req, res) => {
     const { user_discord_id } = req.body;
     await promisePool.query('DELETE FROM users WHERE user_discord_id = ?;', [user_discord_id]);
@@ -42,11 +43,14 @@ app.post('/users', async (req, res) => {
     }
 });
 
+
+//En caso de no obtener ninguna request como las anteriores, mandamos este mensaje
 app.use((req, res) => {
     res.send('<h1> 404 NOT FOUND <h1>');
 });
 
 
+//Iniciamos el listener del servidor
 app.listen(1234, () => {
     console.log(`server listening on port http://localhost:${1234}`);
 })
