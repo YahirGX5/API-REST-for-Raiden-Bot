@@ -38,6 +38,16 @@ app.delete('/users', async (req, res) => {
 
 //Cuando obtengamos un PUT en la ruta '/users'
 app.put('/users', async (req, res) => {
+    try{
+        const { user_name, points } = req.body;
+        await promisePool.query('UPDATE users SET points = points + ? WHERE user_name = ?', [points, user_name]);
+        res.json({"message": `${points} agregados al usuario ${user_name}`});
+
+    } catch (error) {
+        res.status(500).json({"message": "Error al actualizar usuario", "Error": error});
+    }
+     
+
 
 });
 

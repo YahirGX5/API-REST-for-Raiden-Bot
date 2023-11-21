@@ -21,3 +21,13 @@ Content-Type: application/json
 {
   "user_discord_id": 11305
 }
+
+
+### Actualizar los puntos del usuario
+PUT http://localhost:1234/users
+Content-Type: application/json
+
+{
+  "user_name": "prueba de api",
+  "points": 100
+}
