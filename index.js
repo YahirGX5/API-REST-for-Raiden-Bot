@@ -24,9 +24,15 @@ app.get('/users', async (req, res) => {
 
 //Cuando obtenga un DELETE en la ruta '/users'
 app.delete('/users', async (req, res) => {
-    const { user_discord_id } = req.body;
-    await promisePool.query('DELETE FROM users WHERE user_discord_id = ?;', [user_discord_id]);
-    res.send('<h1> Todo bien pibe 😁 <h1>');
+
+    try {
+        const { user_discord_id } = req.body;
+        await promisePool.query('DELETE FROM users WHERE user_discord_id = ?;', [user_discord_id]);
+        res.send('<h1> Todo bien pibe 😁 <h1>');
+    } catch (error) {
+        res.status(500).send(`<h1> Internal Server Error <h1> ${error}`);
+    }
+    
 });
 
 

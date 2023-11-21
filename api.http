@@ -12,3 +12,12 @@ Content-Type: application/json
   "points": 100,
   "level_of_user": 1
 }
+
+
+### Borrar un usuario
+DELETE http://localhost:1234/users
+Content-Type: application/json
+
+{
+  "user_discord_id": 11305
+}
