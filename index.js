@@ -15,8 +15,8 @@ app.get('/users', async (req, res) => {
 
     } catch (error) {
 
-        res.status(500).send(`<h1> Internal Server Error <h1> el error es este ${error}`);
-
+        res.status(500).json({"message": "Error al obtener los usuarios", "Error": error});
+                              
     }
     
 });
@@ -28,13 +28,18 @@ app.delete('/users', async (req, res) => {
     try {
         const { user_discord_id } = req.body;
         await promisePool.query('DELETE FROM users WHERE user_discord_id = ?;', [user_discord_id]);
-        res.send('<h1> Todo bien pibe 😁 <h1>');
+        res.json({"message": "Todo bien pibe, he borrado el usuario 😁"});
     } catch (error) {
-        res.status(500).send(`<h1> Internal Server Error <h1> ${error}`);
+        res.status(500).json({"message": "Error al borrar usuarios", "Error": error});
     }
     
 });
 
+
+//Cuando obtengamos un PUT en la ruta '/users'
+app.put('/users', async (req, res) => {
+
+});
 
 // Cuando tengamos un POST en la ruta '/users'
 app.post('/users', async (req, res) => {
@@ -42,17 +47,17 @@ app.post('/users', async (req, res) => {
 
         const { user_discord_id, user_name, points, level_of_user } = req.body;
         await promisePool.query('INSERT INTO users (user_discord_id, user_name, points, level_of_user) VALUES (?, ?, ?, ?)', [user_discord_id, user_name, points, level_of_user]);
-        res.send('<h1> User added succesfully! <h1>');
+        res.json({"message": "Usuario agregado exitosamente! 😎"});
 
     } catch (error) {
-        res.status(500).send(`<h1> Internal Server Error <h1> ${error}`);
+        res.status(500).json({"message": "Error al agregar usuario", "Error": error});
     }
 });
 
 
 //En caso de no obtener ninguna request como las anteriores, mandamos este mensaje
 app.use((req, res) => {
-    res.send('<h1> 404 NOT FOUND <h1>');
+    res.status(404).json({"message": "404 NOT FOUND"});
 });
 
 
